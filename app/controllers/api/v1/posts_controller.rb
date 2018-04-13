@@ -1,5 +1,6 @@
 class Api::V1::PostsController < ApiController
   before_action :authenticate_user!, except: :index
+  before_action :set_post, only: [:show, :update, :destroy, :check_author]
   before_action :check_author, only: [:update, :destroy]
 
   def index
@@ -38,7 +39,6 @@ class Api::V1::PostsController < ApiController
   end
 
   def show
-    @post = Post.find_by(id: params[:id])
     if Post.readable_posts(current_user).open_public.include?(@post)
       @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
       @comments = @post.comments
@@ -95,10 +95,9 @@ class Api::V1::PostsController < ApiController
   end
 
   def update
-    @post = Post.find_by(id: params[:id])
     if @post.update(post_params)
       render json: {
-        message: "post updated successfully!",
+        message: "Post updated successfully!",
         result: @post
       }
     else
@@ -107,14 +106,24 @@ class Api::V1::PostsController < ApiController
       }
     end
   end
+
+  def destroy
+    @post.destroy
+    render json: {
+      message: "Post destroy successfully!"
+    }
+  end
+
   private
+  def set_post
+    @post = Post.find_by(id: params[:id])
+  end
 
   def post_params
     params.permit(:title, :content, :image, :public, :authority, category_ids: [])
   end
 
   def check_author
-    @post = Post.find_by(id: params[:id])
     unless @post.user == current_user || current_user.admin?
       render json: {
         errors: "這不是你的文章喔"

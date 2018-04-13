@@ -1,5 +1,11 @@
 <div class="container">
   <div class="row">
+    <nav class="nav">
+      <%= link_to "All", posts_path, class: "nav-link" %>
+      <% @categories.each do |category| %>
+        <%= link_to category.name, posts_path(category_id: category.id), class: "nav-link" %>
+      <% end %>
+    </nav>
     <table class="table table-hover">
       <thead>
         <tr>

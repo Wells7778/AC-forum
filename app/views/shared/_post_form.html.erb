@@ -33,7 +33,9 @@
             Category
           </div>
           <div class="form-check form-check-inline">
-            <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, {}, {multiple: true, class: "form-check"} %>
+            <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, {}, {multiple: true, class: "form-check-inline"} do |cb| %>
+              <%= cb.label(class: "form-check-label") { cb.check_box(class: "form-check-input") + cb.text } %>
+            <% end %>
           </div>
         </div>
         <div class="form-group">

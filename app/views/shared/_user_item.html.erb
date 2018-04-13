@@ -6,6 +6,6 @@
   <% end %>
   <p><%= user.name %></p>
   <div class="links">
-    <%= link_to "add friend", "" %>
+    <%= render partial: "shared/friend_button", locals: { user: user } %>
   </div>
 </div>

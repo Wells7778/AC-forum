@@ -14,7 +14,7 @@
             </div>
           <% else %>
             <div class="d-flex flex-row-reverse">
-              <%= link_to "add friend", "" %>
+              <%= render partial: "shared/friend_button", locals: { user: user } %>
             </div>
           <% end %>
         </div>

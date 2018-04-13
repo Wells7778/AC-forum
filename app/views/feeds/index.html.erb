@@ -1,0 +1,63 @@
+<div class="container mb-5 pb-4">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="d-flex justify-content-center">
+        <div class="col-sm-3">
+          <h2 class="text-center">User</h3>
+          <h3 class="text-center border"><%= @user_count %></h4>
+        </div>
+        <div class="col-sm-3">
+          <h2 class="text-center">Post</h3>
+          <h3 class="text-center border"><%= @post_count %></h4>
+        </div>
+        <div class="col-sm-3">
+          <h2 class="text-center">Comment</h3>
+          <h3 class="text-center border"><%= @comment_count %></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="d-flex justify-content-center">
+        <div class="col-sm-4 text-center">
+          <h2>Chatterbox</h2>
+          <hr>
+          <table class="table m-auto table-hover">
+            <tbody>
+              <% @users.each_with_index do |user, index| %>
+                <tr data-link="<%= user_path(user) %>">
+                  <td><%= index+1 %>.</td>
+                  <td><%= user.name %></td>
+                  <td><%= user.comments_count %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-5 text-center">
+          <h2>Most Popular Post</h2>
+          <hr>
+          <table class="table m-auto table-hover">
+            <tbody>
+              <% @posts.each_with_index do |post, index| %>
+                <tr data-link="<%= post_path(post) %>">
+                  <td><%= index+1 %>.</td>
+                  <td><%= post.title %></td>
+                  <td><%= post.updated_at.strftime("%Y-%m-%d") %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

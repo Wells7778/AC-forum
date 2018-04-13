@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <%= render partial: "admin/shared/navtab" %>
+  </div>
+  <div class="row">
+    <%= form_for [:admin, @category], html: { class: "form-inline mb-3" } do |f| %>
+      <div class="form-group mr-3">
+        <%= f.text_field :name, placeholder: "Category Name", class: "form-control" %>
+      </div>
+      <%= f.submit class: "btn btn-primary" %>
+      <% if @category.errors.any? %>
+        <%= @category.errors.full_messages.to_sentence %>
+      <% end %>
+    <% end %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <td><%= category.name %></td>
+            <td>
+              <%= link_to "Edit", admin_categories_path(id: category.id), class: "btn btn-primary" %>
+              <%= link_to "Delete", admin_category_path(category), method: :delete, data: { confirm: "Are you sure??" }, class: "btn btn-primary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

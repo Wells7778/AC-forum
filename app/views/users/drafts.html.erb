@@ -1,0 +1,20 @@
+<%= render partial: "shared/user_info", locals: { user: @user } %>
+<%= render partial: "shared/navtab_user", locals: { user: @user } %>
+<div class="container">
+  <div class="row">
+    <table class="table table-hover text-center">
+      <tbody>
+        <% @drafts.each do |post| %>
+          <tr>
+            <td><%= post.title %></td>
+            <td>Draft</td>
+            <td><%= post.updated_at.strftime("%Y-%m-%d") %></td>
+            <td>
+              <%= render partial: "shared/buttons", locals: { type: "Post", post: post } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

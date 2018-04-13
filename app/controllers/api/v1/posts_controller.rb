@@ -43,6 +43,11 @@ class Api::V1::PostsController < ApiController
       @comments = @post.comments
       render json: {
         data: {
+          categories: @post.categories.map do |category|
+            {
+              name: category.name
+            }
+          end,
           title: @post.title,
           content: @post.content,
           image: @post.image.current_path ,
@@ -72,6 +77,26 @@ class Api::V1::PostsController < ApiController
         errors: "權限不足"
       }
     end
+  end
+
+  def create
+    @post = current_user.posts.build(post_params)
+    if @post.save
+      render json: {
+        message: "Post created successfully!",
+        result: @post
+      }
+    else
+      render json: {
+        errors: @post.errors
+      }
+    end
+  end
+
+  private
+
+  def post_params
+    params.permit(:title, :content, :image, :public, :authority, category_ids: [])
   end
 
 end

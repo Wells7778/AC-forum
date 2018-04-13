@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :vieweds, dependent: :destroy
   has_many :viewed_posts, through: :vieweds, source: :post
 
+  has_many :collections, dependent: :destroy
+  has_many :collect_posts, through: :collections, source: :post
+
   mount_uploader :avatar, AvatarUploader
 
   def admin?

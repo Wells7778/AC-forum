@@ -10,6 +10,9 @@ class Post < ApplicationRecord
   has_many :vieweds, dependent: :destroy
   has_many :viewed_users, through: :vieweds, source: :user
 
+  has_many :collections, dependent: :destroy
+  has_many :collect_users, through: :collections, source: :user
+
   mount_uploader :image, ImageUploader
 
   scope :open_public, -> { where(public: true) }

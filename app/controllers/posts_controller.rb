@@ -41,9 +41,14 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
-    @comments = @post.comments.page(params[:page]).per(20)
-    @comment = Comment.new
+    if @post.public || @post.user == current_user
+      @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
+      @comments = @post.comments.page(params[:page]).per(20)
+      @comment = Comment.new
+    else
+      flash[:alert] = "權限不足"
+      redirect_to posts_path
+    end
   end
 
   def update

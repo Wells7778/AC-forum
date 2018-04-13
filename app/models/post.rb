@@ -15,4 +15,8 @@ class Post < ApplicationRecord
   def self.readable_posts(user)
     Post.where(authority: "all").or(where(authority: "myself", user: user))
   end
+
+  def viewed_by?(user)
+    self.viewed_users.include?(user)
+  end
 end

@@ -14,12 +14,12 @@ class PostsController < ApplicationController
     else
       if params[:category_id]
         @category = Category.find(params[:category_id])
-        @ransack = @category.posts.open_public.where(authority: "all").ransack(params[:q])
+        @ransack = @category.posts.open_public.where(authority: "All").ransack(params[:q])
       else
-        @ransack = Post.open_public.where(authority: "all").ransack(params[:q])
+        @ransack = Post.open_public.where(authority: "All").ransack(params[:q])
       end
     end
-      @posts = @ransack.result(distinct: true).page(params[:page]).per(20)
+      @posts = @ransack.result(distinct: true).includes(:comments).page(params[:page]).per(20)
   end
 
   def new
@@ -40,6 +40,9 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
+    @comments = @post.comments.page(params[:page]).per(20)
+    @comment = Comment.new
   end
 
   private

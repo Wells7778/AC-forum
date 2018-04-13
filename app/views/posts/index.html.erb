@@ -9,19 +9,19 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Replied count</th>
+          <th><%= sort_link(@ransack, :comments_count, "Replied count", default_order: :desc) %></th>
           <th>Title</th>
-          <th>replied at</th>
-          <th>Viewed count</th>
+          <th><%= sort_link(@ransack, :comments_created_at, "replied at", default_order: :desc) %></th>
+          <th><%= sort_link(@ransack, :viewed_count, "Viewed count", default_order: :desc) %></th>
         </tr>
       </thead>
       <tbody>
         <% @posts.each do |post| %>
           <tr data-link="<%= post_path(post) %>">
-            <td>post.comments_count</td>
+            <td><%= post.comments_count %></td>
             <th><%= post.title %></th>
-            <td>post.comments.last.created_at.strftime("%Y-%m-%d") if post.comments.present? </td>
-            <td>post.viewed_count</td>
+            <td><%= post.comments.last.created_at.strftime("%Y-%m-%d") if post.comments.present? %></td>
+            <td><%= post.viewed_count %></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,9 +1,18 @@
-<div class="col-sm-3 border">
-  <%= render partial: "shared/user_item", locals: { user: post.user } %>
-</div>
-<div class="col-sm-9 border">
-  <div class="image mt-3">
-    <%= image_tag post.image, width: "500px" if post.image? %>
+<% if type == "Post" %>
+  <div class="col-sm-3 border">
+    <%= render partial: "shared/user_item", locals: { user: post.user } %>
   </div>
-  <%= render partial: "shared/content_item", locals: { post: post, content: post.content } %>
-</div>
+  <div class="col-sm-9 border">
+    <div class="image mt-3">
+      <%= image_tag post.image, width: "500px" if post.image? %>
+    </div>
+    <%= render partial: "shared/content_item", locals: { type: type, post: post, content: post.content } %>
+  </div>
+<% else %>
+  <div class="col-sm-3 border">
+    <%= render partial: "shared/user_item", locals: { user: comment.user } %>
+  </div>
+  <div class="col-sm-9 border d-flex align-items-center">
+    <%= render partial: "shared/content_item", locals: { type: type, post: post, comment: comment, content: comment.content } %>
+  </div>
+<% end %>

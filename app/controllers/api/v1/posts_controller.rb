@@ -1,5 +1,6 @@
 class Api::V1::PostsController < ApiController
   before_action :authenticate_user!, except: :index
+  before_action :check_author, only: [:update, :destroy]
 
   def index
     if current_user
@@ -93,10 +94,31 @@ class Api::V1::PostsController < ApiController
     end
   end
 
+  def update
+    @post = Post.find_by(id: params[:id])
+    if @post.update(post_params)
+      render json: {
+        message: "post updated successfully!",
+        result: @post
+      }
+    else
+      render json: {
+        errors: @post.errors
+      }
+    end
+  end
   private
 
   def post_params
     params.permit(:title, :content, :image, :public, :authority, category_ids: [])
   end
 
+  def check_author
+    @post = Post.find_by(id: params[:id])
+    unless @post.user == current_user || current_user.admin?
+      render json: {
+        errors: "這不是你的文章喔"
+      }
+    end
+  end
 end

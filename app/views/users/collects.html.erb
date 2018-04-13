@@ -1,0 +1,23 @@
+<%= render partial: "shared/user_info", locals: { user: @user } %>
+<%= render partial: "shared/navtab_user", locals: { user: @user } %>
+<div class="container">
+  <div class="row">
+    <table class="table table-hover text-center">
+      <tbody>
+        <% @collections.each do |post| %>
+          <tr>
+            <td data-link="<%= post_path(post) %>"><%= post.title %></td>
+            <td>
+              <%= render partial: "shared/collect_button", locals: { post: post } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  $("td[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

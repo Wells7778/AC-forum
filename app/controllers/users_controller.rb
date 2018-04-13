@@ -17,6 +17,7 @@ class UsersController < BaseController
   end
 
   def collects
+    @collections = @user.collect_posts
   end
 
   def drafts

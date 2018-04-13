@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       delete :ignore
     end
   end
+  resources :feeds, only: :index
 
   root "posts#index"
 

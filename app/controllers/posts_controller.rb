@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    if @post.public || @post.user == current_user
+    if Post.readable_posts(current_user).open_public.include?(@post)
       @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
       @comments = @post.comments.page(params[:page]).per(20)
       @comment = Comment.new

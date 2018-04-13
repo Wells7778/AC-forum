@@ -15,9 +15,9 @@ class PostsController < ApplicationController
     else
       if params[:category_id]
         @category = Category.find(params[:category_id])
-        @ransack = @category.posts.open_public.where(authority: "All").ransack(params[:q])
+        @ransack = @category.posts.open_public.where(authority: "all").ransack(params[:q])
       else
-        @ransack = Post.open_public.where(authority: "All").ransack(params[:q])
+        @ransack = Post.open_public.where(authority: "all").ransack(params[:q])
       end
     end
       @posts = @ransack.result(distinct: true).includes(:comments).page(params[:page]).per(20)

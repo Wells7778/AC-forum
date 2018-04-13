@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
-
+  resources :users, only: [:show, :edit, :update] do
+    member do
+      get :comments
+      get :collects
+      get :drafts
+      get :friends
+    end
+  end
   resources :posts do
     resources :comments, only: [:create, :destroy]
   end

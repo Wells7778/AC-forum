@@ -6,6 +6,12 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
 
+  has_many :comments, dependent: :destroy
+  has_many :commented_posts, through: :comments, source: :post
+
+  has_many :vieweds, dependent: :destroy
+  has_many :viewed_posts, through: :vieweds, source: :post
+
   def admin?
     self.role == "admin"
   end

@@ -7,7 +7,7 @@
     </div>
     <div class="col-sm-3 offset-sm-6">
       <%= render partial: "shared/collect_button", locals: { post: @post } %>
-      <%= link_to "Comment", "" ,class: "btn btn-sm btn-primary" %>
+      <%= link_to "Comment", "#comments" ,class: "btn btn-sm btn-primary" %>
     </div>
   </div>
   <div class="row">
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" id="comments">
     <div class="col-sm-12 border">
       <%= form_for [@post, @comment] do |f| %>
         <div class="form-group">

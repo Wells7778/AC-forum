@@ -19,64 +19,25 @@ class Api::V1::PostsController < ApiController
         @posts = Post.open_public.where(authority: "all")
       end
     end
-    render json: {
-      data: @posts.map do |post|
-        {
-          title: post.title,
-          content: post.content,
-          image: post.image.current_path ,
-          author:
-            {
-              name: post.user.name,
-              email: post.user.email,
-              avatar: post.user.avatar.current_path
-            },
-          comments_count: post.comments_count,
-          viewed_count: post.viewed_count
-        }
-      end
-    }
+    render "api/v1/posts/index"
   end
 
   def show
-    if Post.readable_posts(current_user).open_public.include?(@post)
-      @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
-      @comments = @post.comments
+    if !@post
       render json: {
-        data: {
-          categories: @post.categories.map do |category|
-            {
-              name: category.name
-            }
-          end,
-          title: @post.title,
-          content: @post.content,
-          image: @post.image.current_path ,
-          author:
-            {
-              name: @post.user.name,
-              email: @post.user.email,
-              avatar: @post.user.avatar.current_path
-            },
-          comments_count: @post.comments_count,
-          viewed_count: @post.viewed_count,
-          comments: @comments.map do |comment|
-            {
-              content: comment.content,
-              comment_author:
-                {
-                  name: comment.user.name,
-                  email: comment.user.email,
-                  avatar: comment.user.avatar.current_path
-                }
-            }
-          end
-        }
-    }
-    else
-      render json: {
-        errors: "權限不足"
+        message: "Can't find the post!",
+        status: 400
       }
+    else
+      if Post.readable_posts(current_user).open_public.include?(@post)
+        @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
+        @comments = @post.comments
+        render "api/v1/posts/show"
+      else
+        render json: {
+          errors: "權限不足"
+        }
+      end
     end
   end
 
@@ -84,7 +45,7 @@ class Api::V1::PostsController < ApiController
     @post = current_user.posts.build(post_params)
     if @post.save
       render json: {
-        message: "Post created successfully!",
+        message: "成功新增文章",
         result: @post
       }
     else
@@ -97,7 +58,7 @@ class Api::V1::PostsController < ApiController
   def update
     if @post.update(post_params)
       render json: {
-        message: "Post updated successfully!",
+        message: "成功更新文章",
         result: @post
       }
     else
@@ -110,7 +71,7 @@ class Api::V1::PostsController < ApiController
   def destroy
     @post.destroy
     render json: {
-      message: "Post destroy successfully!"
+      message: "成功刪除文章"
     }
   end
 

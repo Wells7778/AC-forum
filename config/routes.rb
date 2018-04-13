@@ -25,4 +25,11 @@ Rails.application.routes.draw do
 
   root "posts#index"
 
+  # routes for admin
+  namespace :admin do
+    resources :categories
+    resources :users, only: [:index, :update]
+
+    root "categories#index"
+  end
 end

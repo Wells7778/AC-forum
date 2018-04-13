@@ -26,6 +26,10 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
+  ROLE = {
+    normal: "一般用戶",
+    admin: "管理者"
+  }
   def admin?
     self.role == "admin"
   end

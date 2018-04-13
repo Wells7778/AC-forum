@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <%= render partial: "admin/shared/navtab" %>
+  </div>
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <%= form_tag admin_user_path(user), method: :patch, class: "form-inline" do %>
+                <%= select_tag :role, options_for_select(User::ROLE.map(&:reverse), user.role), class: "form-control" %>
+                <%= submit_tag "Update", class: "btn btn-primary" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

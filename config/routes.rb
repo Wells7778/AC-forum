@@ -25,6 +25,11 @@ Rails.application.routes.draw do
 
   root "posts#index"
 
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :posts, only: [:index, :create, :show, :update, :destroy]
+    end
+  end
   # routes for admin
   namespace :admin do
     resources :categories

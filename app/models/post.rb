@@ -18,7 +18,7 @@ class Post < ApplicationRecord
   scope :open_public, -> { where(public: true) }
 
   def self.readable_posts(user)
-    Post.where(authority: "friend", user: user.all_friends).or( where(authority: "all")).or(where(authority: "myself", user: user))
+    Post.where(authority: "friend", user: user.all_friends).or( where(authority: "all")).or(where(authority: "myself", user: user)).or(where( user: user))
   end
 
   def viewed_by?(user)

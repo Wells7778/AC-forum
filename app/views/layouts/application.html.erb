@@ -9,6 +9,78 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to "Forum", root_path, class: "navbar-brand" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Feeds", "", class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "All Post", "", class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "New Post", "", class: "nav-link" %>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <% if current_user %>
+            <% if current_user.admin? %>
+              <li class="nav-item">
+                <%= link_to "Backstage" , "", class: "nav-link" %>
+              </li>
+            <% end %>
+            <li class="nav-item">
+              <a class="nav-link" href="">
+                <%= current_user.email %>
+                (<%= current_user.role.capitalize %>)
+              </a>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Profile" , "", class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <a class="nav-link" href="">Hi, Guest</a>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    <% if notice %>
+      <div class="container-fluid">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Notice!</strong>
+          <%= notice %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="container-fluid">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Alert!</strong>
+          <%= alert %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

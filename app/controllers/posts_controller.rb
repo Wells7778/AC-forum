@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :check_author, :collect, :uncollect]
   before_action :check_author, only: [:edit, :update, :destroy]
 
   def index
@@ -69,6 +69,21 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:notice] = "文章已刪除"
     redirect_to posts_path
+  end
+
+  def collect
+    @post.collections.create(user: current_user)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def uncollect
+    @collect = Collection.where(user: current_user, post: @post).first
+    @collect.destroy
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

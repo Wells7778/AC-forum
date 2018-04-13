@@ -6,7 +6,7 @@
       </h3>
     </div>
     <div class="col-sm-3 offset-sm-6">
-      <%= link_to "Comment", "" ,class: "btn btn-sm btn-primary" %>
+      <%= render partial: "shared/collect_button", locals: { post: @post } %>
       <%= link_to "Comment", "" ,class: "btn btn-sm btn-primary" %>
     </div>
   </div>

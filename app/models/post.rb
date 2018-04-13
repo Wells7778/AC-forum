@@ -24,4 +24,8 @@ class Post < ApplicationRecord
   def viewed_by?(user)
     self.viewed_users.include?(user)
   end
+
+  def collect_by?(user)
+    self.collect_users.include?(user)
+  end
 end

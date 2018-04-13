@@ -8,8 +8,8 @@ namespace :dev do
         title: FFaker::Book.unique.author,
         content: FFaker::Book.description,
         image: File.open(Rails.root.join("public/fake_image/#{rand(1..12)}.jpg")),
-        draft: [true, false].sample,
-        authority: ["Myself", "Friend", "All"].sample
+        public: [true, true, true, false].sample,
+        authority: ["myself", "friend", "all"].sample
       )
       post.save
       post.categories_posts.create(category: Category.all.sample)
@@ -19,7 +19,7 @@ namespace :dev do
   end
 
   task fake_user: :environment do
-    User.where.not(role: "ADMIN").destroy_all
+    User.where.not(role: "admin").destroy_all
     20.times do
       username = FFaker::Name.unique.last_name
       User.create!(
@@ -51,8 +51,8 @@ namespace :dev do
   task fake_collect: :environment do
     100.times do
       user = User.all.sample
-      post = Post.open_public.sample
-      if post.allow_user(user)
+      post = Post.readable_posts(user).open_public.sample
+      unless post.collect_by?(user)
         post.collections.create(user: user)
       end
     end
@@ -64,8 +64,8 @@ namespace :dev do
     60.times do
       user1 = User.all.sample
       user2 = User.where.not(id: user1.id).sample
-      unless user1.unconfirm_friend?(user2) || user1.has_no_request?(user2)
-        user1.unconfirm_friendships.create!(friend: user2)
+      unless user1.not_yet_accepted_by?(user2) || user1.not_yet_responded_to?(user2)
+        user1.not_yet_accepted_by_friendships.create!(friend: user2)
         puts "#{user1.name} invite #{user2.name}"
       end
     end

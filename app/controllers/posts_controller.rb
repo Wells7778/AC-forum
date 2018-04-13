@@ -20,4 +20,8 @@ class PostsController < ApplicationController
     end
       @posts = @ransack.result(distinct: true).includes(:comments).page(params[:page]).per(20)
   end
+
+  def new
+    @post = Post.new
+  end
 end

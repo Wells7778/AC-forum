@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <%= form_for @post do |f| %>
+        <div class="form-group">
+          <%= f.text_field :title, placeholder: "Title", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.text_area :content, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.file_field :image %>
+        </div>
+        <div class="form-group">
+          <div class="form-check form-check-inline">
+            Who Can See
+          </div>
+          <div class="form-check form-check-inline">
+            <%= radio_button :post, :authority, "all", { checked: true , class: "form-check-input" } %>
+            <%= label_tag :authority_All, "All", class: "form-check-label" %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= radio_button :post, :authority, "friend", class: "form-check-input" %>
+            <%= label_tag :authority_Friend, "Friend", class: "form-check-label" %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= radio_button :post, :authority, "myself", class: "form-check-input" %>
+            <%= label_tag :authority_Myself, "Myself", class: "form-check-label" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check form-check-inline">
+            Category
+          </div>
+          <div class="form-check form-check-inline">
+            <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, {}, {multiple: true, class: "form-check"} %>
+          </div>
+        </div>
+        <div class="form-group">
+          Status:
+        </div>
+        <div class="form-group">
+          <%= f.submit "Save Draft" , class: "btn btn-primary" %>
+          <%= f.submit "Submit" , class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

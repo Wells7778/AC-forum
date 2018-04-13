@@ -1,0 +1,25 @@
+<%= render partial: "shared/user_info", locals: { user: @user } %>
+<%= render partial: "shared/navtab_user", locals: { user: @user } %>
+<div class="container">
+  <div class="row">
+    <% @comments.each do |comment| %>
+      <div class="col-sm-12 border-top border-buttom bg-light" data-link="<%= post_path(comment.post) %>">
+        <div class="row">
+          <div class="col-sm-8 offset-sm-2">
+            <h4 class="m-3"><%= comment.post.title %></h4>
+            <p class="border pt-4 pb-4 rounded bg-secondary text-white"><%= comment.content %></p>
+          </div>
+          <div class="col-sm-1">
+            <%= render partial: "shared/buttons", locals: { type: "Comment", post: comment.post, comment: comment } %>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<script>
+  $("div[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

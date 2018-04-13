@@ -25,6 +25,9 @@ class UsersController < BaseController
   end
 
   def friends
+    @friends = @user.all_friends
+    @not_yet_accepted_by_friends = @user.not_yet_accepted_by_friends
+    @not_yet_responded_to_friends = @user.not_yet_responded_to_friends
   end
 
   private

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="nav nav-tabs nav-fill">
+        <li class="nav-item">
+          <%= link_to_unless_current "My Post", user_path(user), class: "nav-link" do %>
+            <%= link_to "My Post", user_path(user), class: "nav-link active" %>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to_unless_current "My Comment", comments_user_path(user), class: "nav-link" do %>
+            <%= link_to "My Comment", comments_user_path(user), class: "nav-link active" %>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to_unless_current "My Collect", collects_user_path(user), class: "nav-link" do %>
+            <%= link_to "My Collect", collects_user_path(user), class: "nav-link active" %>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to_unless_current "My Draft", drafts_user_path(user), class: "nav-link" do %>
+            <%= link_to "My Draft", drafts_user_path(user), class: "nav-link active" %>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to_unless_current "My Friend", friends_user_path(user), class: "nav-link" do %>
+            <%= link_to "My Friend", friends_user_path(user), class: "nav-link active" %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<%= render partial: "shared/user_info", locals: { user: @user } %>
+<%= render partial: "shared/navtab_user", locals: { user: @user } %>
+<div class="container">
+  <div class="row">
+    <table class="table table-hover text-center">
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr data-link="<%= post_path(post) %>">
+            <td><%= post.title %></td>
+            <td>Published</td>
+            <td><%= post.updated_at.strftime("%Y-%m-%d") %></td>
+            <td>
+              <%= render partial: "shared/buttons", locals: { type: "Post", post: post } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if @user == current_user %>
+      <%= link_to "New Post", new_post_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

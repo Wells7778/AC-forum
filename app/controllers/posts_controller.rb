@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
     @categories = Category.all
@@ -18,7 +19,7 @@ class PostsController < ApplicationController
         @ransack = Post.open_public.where(authority: "all").ransack(params[:q])
       end
     end
-      @posts = @ransack.result(distinct: true).includes(:comments).page(params[:page]).per(20)
+      @posts = @ransack.result(distinct: true).page(params[:page]).per(20)
   end
 
   def new
@@ -38,10 +39,16 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+  end
+
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :image, :draft, :authority, category_ids: [])
+    params.require(:post).permit(:title, :content, :image, :public, :authority, category_ids: [])
   end
 
+  def set_post
+    @post = Post.find(params[:id])
+  end
 end

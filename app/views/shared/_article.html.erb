@@ -1,0 +1,9 @@
+<div class="col-sm-3 border">
+  <%= render partial: "shared/user_item", locals: { user: post.user } %>
+</div>
+<div class="col-sm-9 border">
+  <div class="image mt-3">
+    <%= image_tag post.image, width: "500px" if post.image? %>
+  </div>
+  <%= render partial: "shared/content_item", locals: { post: post, content: post.content } %>
+</div>

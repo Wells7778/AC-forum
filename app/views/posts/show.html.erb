@@ -1,0 +1,16 @@
+<div class="container mt-3">
+  <div class="row border-bottom">
+    <div class="col-sm-3">
+      <h3>
+        <strong><%= @post.title %></strong>
+      </h3>
+    </div>
+    <div class="col-sm-3 offset-sm-6">
+      <%= link_to "Collect", "" ,class: "btn btn-sm btn-primary" %>
+      <%= link_to "Comment", "" ,class: "btn btn-sm btn-primary" %>
+    </div>
+  </div>
+  <div class="row">
+    <%= render partial: "shared/article", locals: { type: "Post", post: @post } %>
+  </div>
+</div>

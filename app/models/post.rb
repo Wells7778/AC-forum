@@ -1,6 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :user
 
+  has_many :categories_posts
+  has_many :categories, through: :categories_posts
+
   scope :open_public, -> { where(public: true) }
 
   def self.readable_posts(user)

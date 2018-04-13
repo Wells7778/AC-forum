@@ -1,11 +1,11 @@
 <% if user !=  current_user %>
   <% unless current_user.friend?(user) %>
-    <% if current_user.has_no_request?(user) %>
+    <% if current_user.not_yet_responded_to?(user) %>
       <%= link_to "接受好友邀請", accept_friendship_path(user), class: "btn btn-primary", method: :post, remote: true %><br>
       <%= link_to "忽略好友邀請", ignore_friendship_path(user), class: "btn btn-danger", method: :delete, remote: true %>
-    <% elsif current_user.unconfirm_friend?(user) %>
+    <% elsif current_user.not_yet_accepted_by?(user) %>
     <% else %>
-      <%= link_to "要求加入好友", friendships_path(friend_id: user), class: "btn btn-primary", method: :post %>
+      <%= link_to "要求加入好友", friendships_path(friend_id: user), class: "btn btn-primary", method: :post, remote: true %>
     <% end %>
   <% end %>
 <% end %>

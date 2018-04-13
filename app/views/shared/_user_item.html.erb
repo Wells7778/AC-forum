@@ -5,7 +5,7 @@
     </div>
   <% end %>
   <p><%= user.name %></p>
-  <div class="links">
+  <div class="links" id="user-<%= user.id %>">
     <%= render partial: "shared/friend_button", locals: { user: user } %>
   </div>
 </div>

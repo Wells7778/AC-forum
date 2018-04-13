@@ -24,4 +24,24 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
+
+  def create
+    @post = current_user.posts.build(post_params)
+    if params[:commit] == "Save Draft"
+      @post.public = false
+      @post.save
+      redirect_to root_path
+    else
+      @post.public = true
+      @post.save
+      redirect_to post_path(@post)
+    end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :content, :image, :draft, :authority, category_ids: [])
+  end
+
 end

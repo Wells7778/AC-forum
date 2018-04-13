@@ -61,7 +61,7 @@ class PostsController < ApplicationController
       @post.public = true
       @post.update(post_params)
       flash[:notice] = "文章已發佈"
-      redirect_to redirect_to post_path(@post)
+      redirect_to post_path(@post)
     end
   end
 

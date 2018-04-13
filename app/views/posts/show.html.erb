@@ -17,7 +17,7 @@
     <% @comments.each do |comment| %>
       <%= render partial: "shared/article", locals: { type: "Comment", post: @post, comment: comment } %>
     <% end %>
-    <div class="div">
+    <div class="mx-auto mt-3">
       <%= paginate @comments %>
     </div>
   </div>

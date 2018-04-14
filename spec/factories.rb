@@ -23,12 +23,12 @@ FactoryBot.define do
   end
 
   factory :comment do
-    content
+    content "content"
     user
     post
   end
 
-  factory :collect do
+  factory :collection do
     user
     post
   end
@@ -42,7 +42,6 @@ FactoryBot.define do
     name FFaker::Name.unique.last_name
     email FFaker::Internet.email
     password "12345678"
-    description FFaker::Lorem.paragraphs
 
     factory :admin do
       role "admin"

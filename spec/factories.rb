@@ -42,9 +42,5 @@ FactoryBot.define do
     name FFaker::Name.unique.last_name
     email FFaker::Internet.email
     password "12345678"
-
-    factory :admin do
-      role "admin"
-    end
   end
 end

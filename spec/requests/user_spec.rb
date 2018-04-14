@@ -25,6 +25,11 @@ RSpec.describe 'User', type: :request do
     end
 
     describe '自己的profile' do
+      it 'can render show' do
+        get user_path(user1)
+        expect(response).to render_template(:show)
+      end
+
       it '顯示自己的文章' do
         get user_path(user1)
         expect(assigns(:posts).ids).to include post1.id
@@ -33,6 +38,11 @@ RSpec.describe 'User', type: :request do
     end
 
     describe '其他人的profile' do
+      it 'can render show' do
+        get user_path(user2)
+        expect(response).to render_template(:show)
+      end
+
       it '顯示其他人的文章' do
         get user_path(user2)
         expect(assigns(:posts).ids).to include post2.id
@@ -95,6 +105,11 @@ RSpec.describe 'User', type: :request do
     end
 
     describe '到自己的草稿夾頁面' do
+      it 'can render drafts' do
+        get drafts_user_path(user1)
+        expect(response).to render_template(:drafts)
+      end
+
       it '會顯示所有草稿' do
         get drafts_user_path(user1)
         expect(assigns(:drafts).ids).to include draft1.id
@@ -122,6 +137,11 @@ RSpec.describe 'User', type: :request do
     end
 
     describe '到自己的回覆頁面' do
+      it 'can render comments' do
+        get comments_user_path(user1)
+        expect(response).to render_template(:comments)
+      end
+
       it '會顯示所有回覆' do
         get comments_user_path(user1)
         expect(assigns(:comments).ids).to include comment1.id
@@ -150,6 +170,11 @@ RSpec.describe 'User', type: :request do
     end
 
     describe '到自己的收藏頁面' do
+      it 'can render collects' do
+        get collects_user_path(user1)
+        expect(response).to render_template(:collects)
+      end
+
       it '會顯示所有收藏' do
         get collects_user_path(user1)
         expect(assigns(:collections).ids).to include post2.id
@@ -173,6 +198,10 @@ RSpec.describe 'User', type: :request do
       sign_in(user1)
     end
     describe '到自己的好友頁面' do
+      it 'can render friends' do
+        get friends_user_path(user1)
+        expect(response).to render_template(:friends)
+      end
       it '會顯示所有好友' do
         get friends_user_path(user1)
         expect(assigns(:friends)).to include user2

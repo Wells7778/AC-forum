@@ -3,7 +3,7 @@ class UsersController < BaseController
   before_action :check_user, except: [:show, :comments]
 
   def show
-    @posts = @user.posts.open_public
+    @posts = @user.posts.readable_posts(current_user).open_public
   end
 
   def update

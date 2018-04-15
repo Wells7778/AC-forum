@@ -17,10 +17,10 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th><%= sort_link(@ransack, :comments_count, "Replied count", default_order: :desc) %></th>
+          <th><%= sort_link(@ransack, "comments_count", "Replied count", default_order: :desc) %></th>
           <th>Title</th>
-          <th><%= sort_link(@ransack, :comments_created_at, "Last replied at", default_order: :desc) %></th>
-          <th><%= sort_link(@ransack, :viewed_count, "Viewed count", default_order: :desc) %></th>
+          <th><%= sort_link(@ransack, "comments.created_at", "Last replied at", default_order: :desc) %></th>
+          <th><%= sort_link(@ransack, "viewed_count", "Viewed count", default_order: :desc) %></th>
         </tr>
       </thead>
       <tbody>

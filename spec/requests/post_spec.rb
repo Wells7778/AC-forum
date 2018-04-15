@@ -95,10 +95,10 @@ RSpec.describe 'Post', type: :request do
 
     end
     context 'Post' do
-      before do
-        post '/posts', params: { post: { title: 'title', content: 'content' } }
-      end
       describe 'when successfully save' do
+        before do
+          post '/posts', params: { post: { title: 'title', content: 'content' } }
+        end
         it 'will redirect to show' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to('/posts/1')
@@ -110,17 +110,21 @@ RSpec.describe 'Post', type: :request do
       end
 
       describe 'when failed' do
-        xit 'will render to new' do
+        before do
+          post '/posts', params: { post: { title: 'title', content: '' } }
+        end
+        it 'will render to new' do
           expect(response).to render_template(:new)
         end
       end
     end
 
     context 'Draft' do
-      before do
-        post '/posts', params: { post: { title: 'title', content: 'draft' }, commit: "Save Draft" }
-      end
+
       describe 'when successfully save' do
+        before do
+          post '/posts', params: { post: { title: 'title', content: 'draft' }, commit: "Save Draft" }
+        end
         it 'will redirect to users#drafts' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to('/users/1/drafts')
@@ -132,7 +136,10 @@ RSpec.describe 'Post', type: :request do
       end
 
       describe 'when failed' do
-        xit 'will render to new' do
+        before do
+          post '/posts', params: { post: { title: 'title', content: '' }, commit: "Save Draft" }
+        end
+        it 'will render to new' do
           expect(response).to render_template(:new)
         end
       end
@@ -206,10 +213,10 @@ RSpec.describe 'Post', type: :request do
       sign_in(user1)
     end
     context '文章更新' do
-      before do
-        patch '/posts/1', params: { post: { title: 'title', content: 'content update' } }
-      end
       describe 'when successfully save' do
+        before do
+          patch '/posts/1', params: { post: { title: 'title', content: 'content update' } }
+        end
         it 'will redirect to show' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to('/posts/1')
@@ -221,7 +228,10 @@ RSpec.describe 'Post', type: :request do
       end
 
       describe 'when failed' do
-        xit 'will render to new' do
+        before do
+          patch '/posts/1', params: { post: { title: '', content: 'content update' } }
+        end
+        it 'will render to edit' do
           expect(response).to render_template(:edit)
         end
       end

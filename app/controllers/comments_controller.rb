@@ -1,5 +1,6 @@
 class CommentsController < BaseController
-  before_action :set_post, only: [:create, :destroy]
+  before_action :set_post, only: [:create, :destroy, :check_authority]
+  before_action :check_authority, only: [:create, :destroy]
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -28,5 +29,12 @@ class CommentsController < BaseController
 
   def comment_params
     params.require(:comment).permit(:content)
+  end
+
+  def check_authority
+    unless @post.check_authority_for?(current_user)
+      flash[:alert] = "您沒有權限讀取此篇文章"
+      redirect_to posts_path
+    end
   end
 end

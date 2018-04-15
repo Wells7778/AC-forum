@@ -28,4 +28,8 @@ class Post < ApplicationRecord
   def collect_by?(user)
     self.collect_users.include?(user)
   end
+
+  def check_authority_for?(user)
+    Post.readable_posts(user).open_public.include?(self)
+  end
 end

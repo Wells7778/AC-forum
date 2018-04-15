@@ -13,7 +13,7 @@
               <%= link_to "Edit", edit_user_path(user), class: "btn btn-primary" %>
             </div>
           <% else %>
-            <div class="d-flex flex-row-reverse">
+            <div class="d-flex flex-row-reverse" id="user-<%= user.id %>">
               <%= render partial: "shared/friend_button", locals: { user: user } %>
             </div>
           <% end %>

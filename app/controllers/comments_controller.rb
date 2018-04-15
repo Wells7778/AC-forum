@@ -5,8 +5,12 @@ class CommentsController < BaseController
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
-    @comment.save!
-    redirect_to post_path(@post)
+    if @comment.save
+      redirect_to post_path(@post)
+    else
+      flash[:alert] = @comment.errors.full_messages.to_sentence
+      redirect_to post_path(@post)
+    end
   end
 
   def destroy

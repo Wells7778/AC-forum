@@ -31,12 +31,20 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if params[:commit] == "Save Draft"
       @post.public = false
-      @post.save
-      redirect_to drafts_user_path(current_user)
+      if @post.save
+        redirect_to drafts_user_path(current_user)
+      else
+        flash.now[:alert] = @post.errors.full_messages.to_sentence
+        render :new
+      end
     else
       @post.public = true
-      @post.save
-      redirect_to post_path(@post)
+      if @post.save
+        redirect_to post_path(@post)
+      else
+        flash.now[:alert] = @post.errors.full_messages.to_sentence
+        render :new
+      end
     end
   end
 
@@ -54,14 +62,22 @@ class PostsController < ApplicationController
   def update
     if params[:commit] == "Save Draft"
       @post.public = false
-      @post.update(post_params)
-      flash[:notice] = "儲存草稿"
-      redirect_to drafts_user_path(current_user)
+      if @post.update(post_params)
+        flash[:notice] = "儲存草稿"
+        redirect_to drafts_user_path(current_user)
+      else
+        flash.now[:alert] = @post.errors.full_messages.to_sentence
+        render :edit
+      end
     else
       @post.public = true
-      @post.update(post_params)
-      flash[:notice] = "文章已發佈"
-      redirect_to post_path(@post)
+      if @post.update(post_params)
+        flash[:notice] = "文章已發佈"
+        redirect_to post_path(@post)
+      else
+        flash.now[:alert] = @post.errors.full_messages.to_sentence
+        render :edit
+      end
     end
   end
 

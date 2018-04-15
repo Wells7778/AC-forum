@@ -13,6 +13,8 @@ class Post < ApplicationRecord
   has_many :collections, dependent: :destroy
   has_many :collect_users, through: :collections, source: :user
 
+  validates_presence_of :title, :content
+
   mount_uploader :image, ImageUploader
 
   scope :open_public, -> { where(public: true) }

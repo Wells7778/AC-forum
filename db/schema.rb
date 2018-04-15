@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413123239) do
+ActiveRecord::Schema.define(version: 20180415145808) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20180413123239) do
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_categories_posts_on_category_id"
+    t.index ["post_id"], name: "index_categories_posts_on_post_id"
   end
 
   create_table "collections", force: :cascade do |t|
@@ -30,6 +32,9 @@ ActiveRecord::Schema.define(version: 20180413123239) do
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id", "user_id"], name: "index_collections_on_post_id_and_user_id"
+    t.index ["post_id"], name: "index_collections_on_post_id"
+    t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -38,6 +43,9 @@ ActiveRecord::Schema.define(version: 20180413123239) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id", "user_id"], name: "index_comments_on_post_id_and_user_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -46,6 +54,10 @@ ActiveRecord::Schema.define(version: 20180413123239) do
     t.boolean "status", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["friend_id"], name: "index_friendships_on_friend_id_and_friend_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id_and_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -59,6 +71,7 @@ ActiveRecord::Schema.define(version: 20180413123239) do
     t.integer "viewed_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,6 +103,9 @@ ActiveRecord::Schema.define(version: 20180413123239) do
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id", "user_id"], name: "index_vieweds_on_post_id_and_user_id"
+    t.index ["post_id"], name: "index_vieweds_on_post_id"
+    t.index ["user_id"], name: "index_vieweds_on_user_id"
   end
 
 end

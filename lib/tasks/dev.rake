@@ -2,7 +2,7 @@ namespace :dev do
   task fake_post: :environment do
     Post.destroy_all
 
-    100.times do
+    rand(100..300).times do
       user = User.all.sample
       post = user.posts.build(
         title: FFaker::Book.unique.author,
@@ -35,14 +35,17 @@ namespace :dev do
   end
 
   task fake_comment: :environment do
+    Comment.destroy_all
     500.times do
-      post = Post.open_public.sample
       user = User.all.sample
+      post = Post.readable_posts(user).open_public.sample
       post.comments.create!(
         user: user,
         content: FFaker::Lorem.sentence
       )
-      post.vieweds.create( user: user )
+      unless post.viewed_by?(user)
+        post.vieweds.create( user: user )
+      end
     end
     puts "created fake comments"
     puts "now you have #{Comment.count} comments data"

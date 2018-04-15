@@ -3,6 +3,6 @@ json.comments comments do |comment|
   json.comment_author do
     json.name comment.user.name
     json.email comment.user.email
-    json.avatar comment.user.avatar.current_path
+    json.avatar comment.user.avatar.url
   end
 end

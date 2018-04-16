@@ -19,11 +19,11 @@
         <% end %>
       <% end %>
     </nav>
-    <table class="table table-hover">
+    <table class="table table-hover text-center">
       <thead>
         <tr>
           <th><%= sort_link(@ransack, :comments_count, "Replied count", default_order: :desc) %></th>
-          <th>Title</th>
+          <th class="text-left">Title</th>
           <th><%= sort_link(@ransack, :comments_created_at, "Last replied at", default_order: :desc) %></th>
           <th><%= sort_link(@ransack, :viewed_count, "Viewed count", default_order: :desc) %></th>
         </tr>
@@ -31,10 +31,12 @@
       <tbody>
         <% @posts.each do |post| %>
           <tr data-link="<%= post_path(post) %>">
-            <td><%= post.comments_count %></td>
-            <th><%= post.title %></th>
+            <td><p class="border m-auto bg-light" style="width: 50px;"><%= post.comments_count %></p></td>
+            <th class="text-left"><%= post.title %></th>
             <td><%= post.comments.last.created_at.strftime("%Y-%m-%d") if post.comments.present? %></td>
-            <td><%= post.viewed_count %></td>
+            <td>
+              <%= fa_icon "eye", text: post.viewed_count  %>
+            </td>
           </tr>
         <% end %>
       </tbody>

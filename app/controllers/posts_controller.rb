@@ -82,9 +82,15 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    flash[:notice] = "文章已刪除"
-    redirect_to posts_path
+    if @post.public
+      @post.destroy
+      flash[:notice] = "文章已刪除"
+      redirect_to posts_path
+    else
+      @post.destroy
+      flash[:notice] = "草稿已刪除"
+      redirect_to drafts_user_path(current_user)
+    end
   end
 
   def collect

@@ -1,5 +1,5 @@
-<div class="container my-5">
-  <div class="row border-bottom">
+<div class="container">
+  <div class="row border-bottom bg-light pt-5">
     <div class="col-sm-3">
       <h3>
         <strong><%= @post.title %></strong>
@@ -13,7 +13,7 @@
   <div class="row">
     <%= render partial: "shared/article", locals: { type: "Post", post: @post } %>
   </div>
-  <div class="row">
+  <div class="row bg-light">
     <% @comments.each do |comment| %>
       <%= render partial: "shared/article", locals: { type: "Comment", post: @post, comment: comment } %>
     <% end %>
@@ -26,7 +26,7 @@
     <div class="col-sm-12 border">
       <%= form_for [@post, @comment] do |f| %>
         <div class="form-group">
-          <%= f.text_area :content, placeholder: "留個言吧！", class: "form-control mt-4" %>
+          <%= f.text_area :content, placeholder: "留個言吧！", class: "form-control mt-4 bg-light" %>
         </div>
         <div class="form-group">
           <%= f.submit class: "btn btn-primary btn-xs" %>

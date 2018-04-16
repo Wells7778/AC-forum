@@ -10,7 +10,7 @@
       <div class="modal-body">
         <%= form_for [post, comment] do |f| %>
           <div class="form-group">
-            <%= f.text_area :content, placeholder: "留個言吧！", class: "form-control mt-4" %>
+            <%= f.text_area :content, placeholder: "留個言吧！", class: "form-control mt-4 bg-light" %>
           </div>
           <div class="form-group">
             <%= f.submit class: "btn btn-primary btn-xs" %>

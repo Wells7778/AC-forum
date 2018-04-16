@@ -3,10 +3,10 @@
     <div class="col-sm-12 mt-4">
       <%= form_for @post do |f| %>
         <div class="form-group">
-          <%= f.text_field :title, placeholder: "Title", class: "form-control" %>
+          <%= f.text_field :title, placeholder: "Title", class: "form-control bg-light" %>
         </div>
         <div class="form-group">
-          <%= f.text_area :content, class: "form-control" %>
+          <%= f.text_area :content, class: "form-control bg-light" %>
         </div>
         <div class="form-group">
           <%= f.file_field :image %>

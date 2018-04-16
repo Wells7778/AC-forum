@@ -1,6 +1,6 @@
 <%= render partial: "shared/user_info", locals: { user: @user } %>
 <%= render partial: "shared/navtab_user", locals: { user: @user } %>
-<div class="container border">
+<div class="container border bg-light">
   <h5 class="text-center">
     等待回覆
   </h5>
@@ -12,8 +12,8 @@
     <% end %>
   </div>
 </div>
-<div class="container border">
-  <h5 class="text-center">
+<div class="container border bg-dark">
+  <h5 class="text-center text-white">
     好友邀請
   </h5>
   <div class="row" id="unaccept-friend">
@@ -24,7 +24,7 @@
     <% end %>
   </div>
 </div>
-<div class="container border">
+<div class="container border bg-light">
   <h5 class="text-center">
     好友清單
   </h5>

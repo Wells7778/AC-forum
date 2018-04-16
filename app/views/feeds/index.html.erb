@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12 my-4">
+    <div class="col-sm-12 mb-4 py-4 bg-light">
       <div class="d-flex justify-content-center">
         <div class="col-sm-3">
           <h2 class="text-center">User</h3>
@@ -25,7 +25,7 @@
         <div class="col-sm-4 text-center">
           <h2>Chatterbox</h2>
           <hr>
-          <table class="table m-auto table-hover">
+          <table class="table m-auto table-hover borderless">
             <tbody>
               <% @users.each_with_index do |user, index| %>
                 <tr data-link="<%= user_path(user) %>">
@@ -40,7 +40,7 @@
         <div class="col-sm-5 text-center">
           <h2>Most Popular Post</h2>
           <hr>
-          <table class="table m-auto table-hover">
+          <table class="table m-auto table-hover borderless">
             <tbody>
               <% @posts.each_with_index do |post, index| %>
                 <tr data-link="<%= post_path(post) %>">

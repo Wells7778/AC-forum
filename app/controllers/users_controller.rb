@@ -13,11 +13,11 @@ class UsersController < BaseController
   end
 
   def comments
-    @comments = @user.comments
+    @comments = @user.comments.includes(:post)
   end
 
   def collects
-    @collections = @user.collect_posts
+    @collections = @user.collect_posts.includes(:collect_users)
   end
 
   def drafts

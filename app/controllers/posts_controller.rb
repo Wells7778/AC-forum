@@ -51,7 +51,7 @@ class PostsController < ApplicationController
   def show
     if @post.check_authority_for?(current_user)
       @post.vieweds.create(user: current_user) unless @post.viewed_by?(current_user)
-      @comments = @post.comments.page(params[:page]).per(20)
+      @comments = @post.comments.includes(:user).page(params[:page]).per(20)
       @comment = Comment.new
     else
       flash[:alert] = "權限不足"

@@ -1,10 +1,11 @@
 <div class="user-item text-center mt-3 mb-3">
-  <%= link_to user_path(user) do %>
+  <%= link_to user_path(user), class: "nav-link" do %>
     <div class="avatar">
       <%= image_tag user.avatar, width: "100%" if user.avatar? %>
     </div>
+    <p><strong><%= user.name %></strong></p>
   <% end %>
-  <p><%= user.name %></p>
+
   <div class="links" id="user-<%= user.id %>">
     <%= render partial: "shared/friend_button", locals: { user: user } %>
   </div>

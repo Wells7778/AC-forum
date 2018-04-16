@@ -14,8 +14,8 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
+            <td data-link="<%= user_path(user) %>"><%= user.name %></td>
+            <td data-link="<%= user_path(user) %>"><%= user.email %></td>
             <td>
               <%= form_tag admin_user_path(user), method: :patch, class: "form-inline" do %>
                 <%= select_tag :role, options_for_select(User::ROLE.map(&:reverse), user.role), class: "form-control" %>
@@ -28,3 +28,9 @@
     </table>
   </div>
 </div>
+
+<script>
+  $("td[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

@@ -4,15 +4,14 @@
   <div class="row">
     <% @comments.each do |comment| %>
       <div class="col-sm-12 border-top border-buttom bg-light">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-sm-8 offset-sm-2" data-link="<%= post_path(comment.post) %>">
             <h4 class="m-3"><%= comment.post.title %></h4>
-            <p class="border pt-4 pb-4 rounded bg-secondary text-white"><%= comment.content %></p>
+            <p class="border p-4 rounded bg-secondary text-white"><%= comment.content %></p>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm-2">
             <%= render partial: "shared/buttons", locals: { type: "Comment", post: comment.post, comment: comment } %>
           </div>
-          <div class="col-sm-1"></div>
         </div>
       </div>
     <% end %>

@@ -9,7 +9,7 @@ class FriendshipsController < BaseController
   end
 
   def accept
-    @friendship = current_user.not_yet_responded_to_friendships.where(user_id: params[:id]).first
+    @friendship = current_user.not_yet_responded_to_friendships.find_by(user_id: params[:id])
     @friendship.update(status: true)
     @user = User.find(params[:id])
     respond_to do |format|
@@ -18,7 +18,7 @@ class FriendshipsController < BaseController
   end
 
   def ignore
-    @friendship = current_user.not_yet_responded_to_friendships.where(user_id: params[:id]).first
+    @friendship = current_user.not_yet_responded_to_friendships.find_by(user_id: params[:id])
     @friendship.destroy
     @user = User.find(params[:id])
     respond_to do |format|

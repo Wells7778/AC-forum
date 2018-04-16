@@ -95,7 +95,7 @@ class PostsController < ApplicationController
   end
 
   def uncollect
-    @collect = Collection.where(user: current_user, post: @post).first
+    @collect = @post.collections.find_by(user: current_user)
     @collect.destroy
     respond_to do |format|
       format.js

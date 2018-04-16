@@ -1,0 +1,25 @@
+<div class="modal fade" id="editComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">編輯回覆</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_for [post, comment] do |f| %>
+          <div class="form-group">
+            <%= f.text_area :content, placeholder: "留個言吧！", class: "form-control mt-4" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit class: "btn btn-primary btn-xs" %>
+            <%= f.button "取消", type: :reset, class: "btn btn-danger btn-xs" %>
+            <%= f.button "關閉", class: "btn btn-secondary btn-xs", data: { dismiss: "modal" } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

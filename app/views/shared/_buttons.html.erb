@@ -15,6 +15,9 @@
       <%= link_to post_comment_path(post,comment), method: :delete, data: { confirm: "確定刪除？" }, class: "p-2 text-danger align-self-end" do %>
         <%= fa_icon "window-close-o 2x" %>
       <% end %>
+      <%= link_to edit_current_comment_post_path(post, comment_id: comment.id), remote: true, class: "p-2" do %>
+        <%= fa_icon "edit 2x" %>
+      <% end %>
     </div>
   <% end %>
 <% end %>

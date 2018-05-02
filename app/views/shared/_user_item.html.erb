@@ -1,7 +1,11 @@
 <div class="user-item text-center mt-3 mb-3">
   <%= link_to user_path(user), class: "nav-link" do %>
     <div class="avatar">
-      <%= image_tag user.avatar, width: "100%" if user.avatar? %>
+      <% if user.avatar? %>
+        <%= image_tag user.avatar, width: "100%" %>
+      <% else %>
+        <%= fa_icon "user 5x" %>
+      <% end %>
     </div>
     <p><strong><%= user.name %></strong></p>
   <% end %>
